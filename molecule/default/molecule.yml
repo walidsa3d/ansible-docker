@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: jammy
+    image: eniocarboni/docker-ubuntu-systemd:latest
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra
+scenario:
+  name: default
+  create_sequence:
+    - create
+  check_sequence:
+    - destroy
+    - dependency
+    - create
+

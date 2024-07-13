@@ -1,0 +1,46 @@
+---
+# tasks file for docker
+- name: Check if Docker is installed
+  command: docker -v 
+  register: docker_installed
+  ignore_errors: true
+
+- name: Add GPG key
+  shell:
+    cmd: |
+      sudo install -m 0755 -d /etc/apt/keyrings
+      curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+      sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+- name: Add repos
+  shell:
+    cmd: |
+      echo \
+      "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+      "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+- name: Install Docker packages
+  apt:
+    name:
+      - docker-ce 
+      - docker-ce-cli 
+      - containerd.io 
+      - docker-buildx-plugin 
+      - docker-compose-plugin
+    state: latest
+    update_cache: true
+  when: docker_installed.failed
+
+- name: Ensure Docker group exists
+  group:
+     name: docker
+     state: present
+  register: docker_group
+
+- name: Add User to docker group
+  user:
+    name: yourUser
+    groups: docker 
+    append: true 
+  when: docker_group is changed
