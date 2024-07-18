@@ -11,8 +11,17 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: "${{ github.repository }}"
-      - name: molecule
-        uses: robertdebock/molecule-action@4.0.7
+      - name: Set up Python 3.
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule molecule-plugins[docker] docker pytest-testinfra
+
+      - name: Run Molecule tests.
+        run: molecule test
+  
   release:
     name: Release
     needs:
