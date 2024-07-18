@@ -47,8 +47,8 @@
     append: true 
   when: docker_group is changed
 
-# - name: start docker                                                                                                                                    
-#   systemd_service:                                                                                                                                               
-#     name: docker                                                                                                                                          
-#     state: started 
-#     enabled: true
+- name: start docker                                                                                                                                    
+  systemd_service:                                                                                                                                               
+    name: docker                                                                                                                                          
+    state: started 
+    enabled: true

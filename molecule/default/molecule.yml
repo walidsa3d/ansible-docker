@@ -5,7 +5,11 @@ driver:
   name: docker
 platforms:
   - name: jammy
-    image: jrei/systemd-ubuntu:20.04
+    image: jrei/systemd-ubuntu:latest
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
 provisioner:
   name: ansible
 verifier:
