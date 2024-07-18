@@ -3,9 +3,9 @@
     name:
       - apt-transport-https
       - ca-certificates
-      - curl
       - gnupg-agent
       - software-properties-common
+    update_cache: true
     state: present
 
 - name: Add Docker apt-key
