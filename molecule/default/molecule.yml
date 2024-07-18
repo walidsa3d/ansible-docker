@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: jammy
-    image: eniocarboni/docker-ubuntu-systemd:latest
+    image: jrei/systemd-ubuntu:20.04
 provisioner:
   name: ansible
 verifier:
