@@ -20,7 +20,7 @@ jobs:
         run: pip3 install ansible molecule molecule-plugins[docker] docker pytest-testinfra
 
       - name: Run Molecule tests.
-        run: molecule test
+        run: molecule verify
   
   release:
     name: Release
