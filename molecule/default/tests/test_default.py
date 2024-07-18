@@ -1,5 +1,5 @@
 def test_docker_is_installed(host):
-    docker = host.package("docker")
+    docker = host.package("docker-ce")
     assert docker.is_installed
 
 def test_docker_running_and_enabled(host):

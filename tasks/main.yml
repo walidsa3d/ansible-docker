@@ -46,5 +46,9 @@
     groups: docker 
     append: true 
   when: docker_group is changed
-  notify:
-    - start docker
+
+- name: start docker                                                                                                                                    
+  service:                                                                                                                                               
+    name: docker                                                                                                                                          
+    state: started 
+    enabled: true
