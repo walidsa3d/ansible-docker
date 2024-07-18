@@ -2,7 +2,9 @@ name: GitHub Action
 
 on:
   - push
-
+defaults:
+  run:
+    working-directory: "walidsa3d.ansidocker"
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -10,7 +12,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
         with:
-          path: "${{ github.repository }}"
+          path: "walidsa3d.ansidocker"
       - name: Set up Python 3.
         uses: actions/setup-python@v5
         with:
