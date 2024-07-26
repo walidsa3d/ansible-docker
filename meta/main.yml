@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: ansidocker
+  role_name: docker
   author: walidsa3d
   description: An ansible role to install docker on Ubuntu.
   license: MIT

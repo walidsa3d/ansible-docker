@@ -2,18 +2,17 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: vagrant
+
 platforms:
   - name: ubuntu
-    image: jrei/systemd-ubuntu:latest
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: true
+    box: ubuntu/jammy64
+    memory: 1024
+    cpus: 2
 provisioner:
   name: ansible
 verifier:
-  name: testinfra
+  name: ansible
 scenario:
   name: default
   create_sequence:
@@ -22,9 +21,4 @@ scenario:
     - destroy
     - dependency
     - create
-  verify_sequence:
-    - create 
-    - Converge
-    - verify
-    - destroy
 

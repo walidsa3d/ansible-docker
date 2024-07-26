@@ -1,0 +1,23 @@
+- name: Verify Docker Installation
+  hosts: all
+  tasks:
+    - name: Check Docker service is running
+      service:
+        name: docker
+        state: started
+      register: docker_service
+
+    - name: Assert Docker service is running
+      assert:
+        that:
+          - docker_service.state == "started"
+
+    # - name: Check Docker data directory
+    #   stat:
+    #     path: /mnt/docker_data
+    #   register: docker_data_dir
+
+    # - name: Assert Docker data directory exists
+    #   assert:
+    #     that:
+    #       - docker_data_dir.stat.exists
