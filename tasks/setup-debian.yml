@@ -1,0 +1,62 @@
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg-agent
+      - software-properties-common
+    update_cache: true
+    state: present
+
+- name: Add Docker apt-key
+  get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/trusted.gpg.d/docker.asc
+    mode: '0644'
+    force: true
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/debian {{ansible_distribution_release}} stable"
+    state: present
+
+- name: Update apt and install Docker
+  apt:
+    name: "{{item}}"
+    state: latest
+    update_cache: true
+  with_items:
+    - docker-ce 
+    - docker-ce-cli 
+    - containerd.io 
+    - docker-buildx-plugin 
+    - docker-compose-plugin
+
+- name: Ensure Docker group exists
+  group:
+    name: docker
+    state: present
+  register: docker_group
+
+- name: Add current user to Docker group
+  user:
+    name: "{{ansible_user}}"
+    groups: docker 
+    append: true 
+  when: docker_group is changed
+
+- name: Add configuration
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    mode: '0644'
+    owner: root
+    group: root
+  notify:
+    - restart docker
+
+- name: Start docker                                                                                                                                    
+  service:                                                                                                                                               
+    name: docker                                                                                                                                          
+    state: started 
+    enabled: true
