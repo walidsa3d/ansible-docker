@@ -12,11 +12,23 @@ Requirements
 - Ansible
 - Molecule
 
-Role Variables
+Variables
 --------------
+```yaml
+data_dir: "/var/lib/docker"
+```
 
+Dependencies
+------------
+- None
 
-
+Example Playbook
+----------------
+```yaml
+- hosts: all
+  roles:
+    - walidsa3d.docker
+```
 License
 -------
 
