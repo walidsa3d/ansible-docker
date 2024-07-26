@@ -1,3 +1,4 @@
 ---
 # defaults file for docker
 user: "ubuntu"
+data_dir: "/var/lib/docker"
