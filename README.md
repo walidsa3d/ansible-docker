@@ -1,9 +1,9 @@
-Ansidocker
+Ansible-Docker
 =========
 
 An Ansible role to install docker on Ubuntu/Debian.
 ![Ansible Role](https://img.shields.io/ansible/role/d/walidsa3d/docker)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/walidsa3d/ansidocker/main.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/walidsa3d/ansible-docker/main.yml)
 
 Install
 ------------
