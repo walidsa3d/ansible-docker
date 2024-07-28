@@ -6,7 +6,7 @@ on:
       - '*'
 defaults:
   run:
-    working-directory: "walidsa3d.ansidocker"
+    working-directory: "walidsa3d.docker"
 jobs:
   release:
     name: Release
@@ -15,7 +15,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v4
         with:
-          path: "walidsa3d.ansidocker"
+          path: "walidsa3d.docker"
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
