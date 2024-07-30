@@ -7,22 +7,22 @@
         extensions:
           - 'yml'
     - name: Check Docker service is running
-      service:
+      ansible.builtin.service:
         name: docker
         state: started
       register: docker_service
 
     - name: Assert Docker service is running
-      assert:
+      ansible.builtin.assert:
         that:
           - docker_service.state == "started"
 
     - name: Check Docker data directory
-      stat:
-        path: "{{data_dir}}"
+      ansible.builtin.stat:
+        path: "{{ data_dir }}"
       register: docker_data_dir
 
     - name: Assert Docker data directory exists
-      assert:
+      ansible.builtin.assert:
         that:
           - docker_data_dir.stat.exists

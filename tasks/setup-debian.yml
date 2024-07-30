@@ -1,5 +1,5 @@
 - name: Ensure dependencies are installed.
-  apt:
+  ansible.builtin.apt:
     name:
       - apt-transport-https
       - ca-certificates
@@ -9,19 +9,19 @@
     state: present
 
 - name: Add Docker apt-key
-  get_url:
+  ansible.builtin.get_url:
     url: https://download.docker.com/linux/debian/gpg
     dest: /etc/apt/trusted.gpg.d/docker.asc
     mode: '0644'
     force: true
 
 - name: Add Docker apt repository
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/debian {{ansible_distribution_release}} stable"
     state: present
 
 - name: Update apt and install Docker
-  apt:
+  ansible.builtin.apt:
     name: "{{item}}"
     state: latest
     update_cache: true
@@ -33,20 +33,20 @@
     - docker-compose-plugin
 
 - name: Ensure Docker group exists
-  group:
+  ansible.builtin.group:
     name: docker
     state: present
   register: docker_group
 
 - name: Add current user to Docker group
-  user:
+  ansible.builtin.user:
     name: "{{ansible_user}}"
     groups: docker 
     append: true 
   when: docker_group is changed
 
 - name: Add configuration
-  template:
+  ansible.builtin.template:
     src: daemon.json.j2
     dest: /etc/docker/daemon.json
     mode: '0644'
@@ -56,7 +56,7 @@
     - restart docker
 
 - name: Start docker                                                                                                                                    
-  service:                                                                                                                                               
+  ansible.builtin.service:                                                                                                                                               
     name: docker                                                                                                                                          
     state: started 
     enabled: true

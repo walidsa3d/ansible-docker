@@ -1,4 +1,3 @@
-
 - name: Install Docker on Ubuntu                                                                                                                                   
   include_tasks: setup-ubuntu.yml                                                                                                                                               
   when: ansible_distribution == "Ubuntu"

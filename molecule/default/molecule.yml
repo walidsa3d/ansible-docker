@@ -21,4 +21,6 @@ scenario:
     - destroy
     - dependency
     - create
+  converge_sequence:
+    - converge
 
