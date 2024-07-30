@@ -1,28 +1,6 @@
-- name: Verify Docker Installation
+- name: Verify
   hosts: all
   tasks:
-    - name: Include default vars
-      ansible.builtin.include_vars:
-        dir: '{{ lookup("env", "MOLECULE_PROJECT_DIRECTORY") }}/defaults/'
-        extensions:
-          - 'yml'
-    - name: Check Docker service is running
-      ansible.builtin.service:
-        name: docker
-        state: started
-      register: docker_service
-
-    - name: Assert Docker service is running
-      ansible.builtin.assert:
-        that:
-          - docker_service.state == "started"
-
-    - name: Check Docker data directory
-      ansible.builtin.stat:
-        path: "{{ data_dir }}"
-      register: docker_data_dir
-
-    - name: Assert Docker data directory exists
-      ansible.builtin.assert:
-        that:
-          - docker_data_dir.stat.exists
+    - name: Run Testinfra tests
+      ansible.builtin.command: pytest
+      become: true
